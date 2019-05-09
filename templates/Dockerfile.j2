@@ -1,0 +1,10 @@
+# Build Elasticsearch Container
+FROM {{ dockerUser + "/" + buildImageName + ":" + buildImageVersion }}
+LABEL maintainer="{{ dockerUser }} <{{ dockerUserEmail }}>"
+
+# Replace Config With K8s Config (Includes plugin)
+COPY config /elasticsearch/config
+
+# Set Discovery Environment / Swap Is Disabled, Disable Lock
+ENV DISCOVERY_SERVICE=elasticsearch-discovery \
+        MEMORY_LOCK false
